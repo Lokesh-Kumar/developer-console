@@ -1,0 +1,64 @@
+.nav-pill {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #02c340;
+    background-color: transparent;
+    border-radius: 20px;
+  }
+  .nav-pill.active {
+    background-color: #02c340;
+  }
+  .login-container {
+        font-family: 'Roboto', 'open sans', sans-serif;
+        font-size: 14px;
+        display: flex;
+        align-items: middle;
+        justify-content: center;
+      }
+      .login-form {
+        text-align: center;
+        width: 300px;
+        padding: 2rem 1rem;
+        box-shadow: 2px 4px 8px #aaa;
+      }
+  h3 {
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .form-group {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  label {
+    color: #aaa;
+    position: absolute;
+    top: 0;
+    left: 25px;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+  }
+  .form-group input {
+    padding: 0.5rem 0.25rem;
+    border: none;
+    width: 250px;
+    border-bottom: 2px solid #222;
+  }
+  input:focus ~ label, input:valid ~ label {
+    top:-20px;
+    left: 22px;
+    font-size:14px;
+    color:#222;
+  }
+  input:focus {
+    outline: none;
+  }
+      button {
+        font-family: 'Roboto', 'open sans', sans-serif;
+        font-size: 12px;
+        width: 270px;
+        padding: 1rem;
+        text-align: center;
+        border: none;
+        background-color: #222;
+        color: #fff;
+      }
