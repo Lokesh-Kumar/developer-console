@@ -37,7 +37,7 @@
     -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
   }
-  .form-group input {
+  input {
     padding: 0.5rem 0.25rem;
     border: none;
     width: 250px;
