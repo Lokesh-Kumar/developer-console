@@ -4,8 +4,15 @@ class ThirdPartyAuthentication extends Component{
 
     render(){
         return(
-            <div></div>
+            <GoogleAuthContainer/>
         );
     }
+}
+
+const GoogleAuthContainer =(props)=> {
+        return(
+            <div>Login with google</div>
+
+        );
 }
 export default ThirdPartyAuthentication;

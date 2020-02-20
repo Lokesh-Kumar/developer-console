@@ -7,7 +7,8 @@ class AuthContainer extends Component{
         isLoginOpen: true,
         userName : undefined,
         passWord : undefined,
-        emailId : undefined
+        emailId : undefined,
+        isEmailIdValid: undefined
       };
 
     toggleAuthContainer=()=>{
@@ -16,16 +17,22 @@ class AuthContainer extends Component{
           });
     };
     submitLogin=(e)=>{
-        console.log(e);
+        if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.emailId)){
+            console.log("yes");
+        }
+        console.log({emailId : this.state.emailId, passWord : this.state.passWord});
     }
 
-   onUserNameChange= (event) => {
+    onUserNameChange= (event) => {
         console.log(event.target.value);
         this.setState({userName: event.target.value});
     }
     onEmailIdChange= (event) => {
-        console.log(event.target.value);
-        this.setState({emailId: event.target.value});
+        if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(event.target.value)){
+            this.setState({emailId: event.target.value , isEmailIdValid: true});
+        }else{  
+            this.setState({isEmailIdValid: false});
+        }
     }
     onPasswordChange= (event) => {
         this.setState({passWord: event.target.value});
@@ -33,21 +40,21 @@ class AuthContainer extends Component{
     render(){
         return(
             <div className="auth-container">
-                <div className='auth-choice-container'>
-                      <span className="nav-pill active" onClick={this.toggleAuthContainer}>Log in</span>
-                      <span className="nav-pill" onClick={this.toggleAuthContainer}>Sign up</span>
-                </div>
+               <h1>Log in</h1>
                 <div className='form-container'>
                    { this.state.isLoginOpen? 
                     <LoginContainer 
                             submitLogin={this.submitLogin}
                             onEmailIdChange={this.onEmailIdChange}
-                            onPasswordChange={this.onPasswordChange}/> : 
+                            isEmailIdValid={this.state.isEmailIdValid}
+                            onPasswordChange={this.onPasswordChange}
+                            toggleAuthContainer={this.toggleAuthContainer}/> : 
                     <SignUpContainer
                             submitLogin={this.submitLogin}
                             onEmailIdChange={this.onEmailIdChange}
                             onPasswordChange={this.onPasswordChange}
-                            onUserNameChange={this.onUserNameChange}/>}
+                            onUserNameChange={this.onUserNameChange}
+                            toggleAuthContainer={this.toggleAuthContainer}/>}
                 </div>
                 <ThirdPartyAuthentication/>
             </div>
@@ -59,19 +66,16 @@ class AuthContainer extends Component{
 const LoginContainer =(props)=> {
 
      return(   <div className="inner-container">
-            <div className='box'>
-                <div className='input-group'>
-                    <label htmlFor="emailid">Email Id</label>
+                  <div className='input-group'>
                     <input 
                         type="email" name="emailid"
-                        className="login-input"
+                        className={props.isEmailIdValid? "login-input input-valid" : "login-input input-error"}
                         placeholder="Email Id "
                         onChange={props.onEmailIdChange}/>
                 </div>
 
 
                 <div className='input-group'>
-                    <label htmlFor="password">Password</label>
                     <input 
                         type="password" 
                         name="password" 
@@ -80,9 +84,9 @@ const LoginContainer =(props)=> {
                         onChange={props.onPasswordChange}/>
                 </div>
 
-                <button  type='button' className='login-btn' onClick={props.submitLogin}>Login</button> 
+                <button  type='button' className='login-btn' onClick={props.submitLogin }>Login</button> 
+                <a onClick={props.toggleAuthContainer}>No account? Signup</a>
             </div>
-        </div>
      );
     
 }
@@ -90,7 +94,6 @@ const LoginContainer =(props)=> {
 const SignUpContainer =(props)=> {
 
        return ( <div className="inner-container">
-            <div className='box'>
                 <div className='input-group'>
                     <label htmlFor="username">Username</label>
                     <input 
@@ -119,10 +122,11 @@ const SignUpContainer =(props)=> {
                         placeholder="Password"
                         onChange={props.onPasswordChange}/>
                 </div>
-
                 <button  type='button' className='login-btn' onClick={props.submitLogin}> Sign Up</button> 
-            </div>
+                <a onClick={props.toggleAuthContainer}>Already a member? Login</a>
         </div>);
 }
 
 export default AuthContainer;
+
+//https://www.mockplus.com/blog/post/login-page-examples nike example
